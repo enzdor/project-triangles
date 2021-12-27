@@ -7,6 +7,40 @@
     <title>Triangles</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h1>Lets make some triangles!</h1>
+    <form action="/" method="post">
+        <div>
+            <label for="">Side A</label>
+            <input type="number" name="sideA" id="sideA">
+        </div>
+        <div>
+            <label for="">Side B</label>
+            <input type="number" name="sideB" id="sideB">
+        </div>
+        <div>
+            <label for="">Side C</label>
+            <input type="number" name="sideC" id="sideC">
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+    <div>
+        <% if (locals.errors) { %>
+            <p>Erorrs</p>
+            <% for(let error of errors){ %> 
+                <p><%= error.msg %> </p>
+            <% } %> 
+        <% } %>
+    </div>
+    <% if (angles.length == 0) {  %>
+    <%} else { %>
+        <div>
+            <p>Angle A: <%= angles[0] %></p>
+            <p>Angle B: <%= angles[1] %></p>
+            <p>Angle C: <%= angles[2] %></p> 
+        </div>
+    <%} %> 
+    <div id='triangle' style="border-left:  solid transparent;"></div>
 </body>
 </html>
