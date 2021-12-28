@@ -8,7 +8,7 @@ const {check} = require('express-validator');
 let validateSides = [
     check('sideA').notEmpty().withMessage('You need to complete this field'),
     check('sideB').notEmpty().withMessage('You need to complete this field'),
-    check('sideC').notEmpty().withMessage('You need to complete this field').bail()
+    check('sideC').notEmpty().withMessage('You need to complete this field'),
 ]
 
 

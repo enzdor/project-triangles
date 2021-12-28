@@ -9,16 +9,22 @@ function findAngle(sideA, sideB, sideC){
 
 const mainController = {
     index: (req, res) => {
-        let sides = [];
         let angles = [];
-        res.render('index', {angles})
+        let v3 = 10;
+        let v5 = 0;
+        let v6 = 10;
+        let area = 0;
+        
+        res.render('index', {angles, v3, v5, v6, area})
     },
     post: (req, res) => {
         let errors = validationResult(req);
-        let sides = [];
         let angles = [];
 
         if(errors.isEmpty()){
+
+            // FINDING ANGLES
+
             let sideA = Number(req.body.sideA);
             let sideB = Number(req.body.sideB);
             let sideC = Number(req.body.sideC);
@@ -31,10 +37,39 @@ const mainController = {
 
             let angles = [angleA, angleB, angleC];
 
-            res.render('index', {sides, angles});
+
+            // FINDING POSITION OF THIRD VERTICE
+
+
+            let x2 = Number(req.body.sideB);
+            let r1 = Number(req.body.sideA);
+            let r2 = Number(req.body.sideC);
+
+            let b = x2*2;
+            let c2 = r2*r2 - x2*x2;
+
+            let x = (r1*r1 - c2)/b;
+            let y = Math.sqrt(-x*x + r1*r1);
+
+            let vertices = [0,0,x2,0,x,y];
+
+
+            let v3 = x2;
+            let v5 = x;
+            let v6 = y;
+
+            
+            //FINDING AREA OF TRIANGLE
+
+            let semiPerimeter = (sideA + sideB + sideC)/2;
+            let area = Math.sqrt(semiPerimeter * (semiPerimeter - sideA) * (semiPerimeter - sideB) * (semiPerimeter - sideC));
+
+                    
+
+            res.render('index', {angles, v3, v5, v6, area, sideA, sideB, sideC});
             return
         } else {
-            res.render('index', {sides, angles, errors: errors.errors})
+            res.render('index', {angles, errors: errors.errors})
         }
 
 

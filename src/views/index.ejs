@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triangles</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
 </head>
 <body>
     <h1>Lets make some triangles!</h1>
@@ -38,9 +41,71 @@
         <div>
             <p>Angle A: <%= angles[0] %></p>
             <p>Angle B: <%= angles[1] %></p>
-            <p>Angle C: <%= angles[2] %></p> 
+            <p>Angle C: <%= angles[2] %></p> <%=  %> 
         </div>
-    <%} %> 
-    <div id='triangle' style="border-left:  solid transparent;"></div>
+    <%} %>
+    <% if (area != 0) { %>
+        <p>Area = <%= area %>cubic </p>
+    <% } %>
+    <article id="dataGraph"
+    data-v3="<%= v3 %>"
+    data-v5="<%= v5 %>"
+    data-v6="<%= v6 %>"
+    data-sideA="<%= sideA %>"
+    data-sideA="<%= sideB %>"
+    data-sideA="<%= sideC %>">
+    </article> 
+    <div id="graph_container">
+        <canvas id='graph'></canvas>
+    </div>
+    <script>
+        const article = document.querySelector('#dataGraph');
+
+        let number = Math.max(Number(article.dataset.sideA), Number(article.dataset.sideB), Number(article.dataset.sideC))
+        let largest = number;
+
+        const myChart = new Chart(
+            document.getElementById('graph'),
+            {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Triangle Points',
+                    data: [{
+                        x: 0,
+                        y: 0
+                    },{
+                        x: Number(article.dataset.v5),
+                        y: Number(article.dataset.v6)
+                    },{
+                        x: Number(article.dataset.v3),
+                        y: 0
+                    },{
+                        x: 0,
+                        y: 0
+                    }],
+                    backgroundColor: 'red',
+                    borderColor: 'red'
+                }],
+            },
+            options: {
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                showLine: true,
+                scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    max: 400,
+                },
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    max: 400,
+                }}
+            }
+        }
+        );
+    </script>
 </body>
 </html>
