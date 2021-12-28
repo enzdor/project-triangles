@@ -10,24 +10,25 @@
     
 </head>
 <body>
-    <h1>Lets make some triangles!</h1>
-    <form action="/" method="post">
-        <div>
-            <label for="">Side A</label>
-            <input type="number" name="sideA" id="sideA">
-        </div>
-        <div>
-            <label for="">Side B</label>
-            <input type="number" name="sideB" id="sideB">
-        </div>
-        <div>
-            <label for="">Side C</label>
-            <input type="number" name="sideC" id="sideC">
-        </div>
-        <div>
-            <input type="submit">
-        </div>
-    </form>
+    <div>
+        <form action="/" method="post">
+            <div>
+                <label for="">Side A</label>
+                <input type="number" step="0.0001" name="sideA" id="sideA">
+            </div>
+            <div>
+                <label for="">Side B</label>
+                <input type="number" step="0.0001" name="sideB" id="sideB">
+            </div>
+            <div>
+                <label for="">Side C</label>
+                <input type="number" step="0.0001" name="sideC" id="sideC">
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </div>
     <div>
         <% if (locals.errors) { %>
             <p>Erorrs</p>
@@ -41,19 +42,21 @@
         <div>
             <p>Angle A: <%= angles[0] %></p>
             <p>Angle B: <%= angles[1] %></p>
-            <p>Angle C: <%= angles[2] %></p> <%=  %> 
+            <p>Angle C: <%= angles[2] %></p>
         </div>
     <%} %>
     <% if (area != 0) { %>
-        <p>Area = <%= area %>cubic </p>
+        <div>
+            <p>Area = <%= area %>cubic </p>
+        </div>
     <% } %>
     <article id="dataGraph"
     data-v3="<%= v3 %>"
     data-v5="<%= v5 %>"
     data-v6="<%= v6 %>"
-    data-sideA="<%= sideA %>"
-    data-sideA="<%= sideB %>"
-    data-sideA="<%= sideC %>">
+    data-sa="<%= sideA %>"
+    data-sb="<%= sideB %>"
+    data-sc="<%= sideC %>">
     </article> 
     <div id="graph_container">
         <canvas id='graph'></canvas>
@@ -61,8 +64,12 @@
     <script>
         const article = document.querySelector('#dataGraph');
 
-        let number = Math.max(Number(article.dataset.sideA), Number(article.dataset.sideB), Number(article.dataset.sideC))
-        let largest = number;
+
+        let number = Math.max(Number(article.dataset.sa),Number(article.dataset.sb),Number(article.dataset.sc));
+        let largest = Math.round(number);
+        console.log(largest);
+
+        Chart.defaults.plugins.legend.display = 'false';
 
         const myChart = new Chart(
             document.getElementById('graph'),
@@ -89,6 +96,15 @@
                 }],
             },
             options: {
+                plugins:{
+                    legend: {
+                        display: false,
+                    },
+                    title: {
+                        display: true,
+                        text: 'Your triangle (not up to scale)',
+                    }
+                },
                 maintainAspectRatio: true,
                 aspectRatio: 1,
                 showLine: true,
@@ -96,15 +112,15 @@
                 x: {
                     type: 'linear',
                     position: 'bottom',
-                    max: 400,
+                    max: largest,
                 },
                 y: {
                     type: 'linear',
                     position: 'left',
-                    max: 400,
+                    max: largest,
                 }}
             }
-        }
+            }
         );
     </script>
 </body>

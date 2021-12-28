@@ -13,9 +13,12 @@ const mainController = {
         let v3 = 10;
         let v5 = 0;
         let v6 = 10;
+        let sideA = 0;
+        let sideB = 0;
+        let sideC = 0;
         let area = 0;
         
-        res.render('index', {angles, v3, v5, v6, area})
+        res.render('index', {angles, v3, v5, v6, area, sideA, sideB, sideC})
     },
     post: (req, res) => {
         let errors = validationResult(req);
@@ -31,9 +34,9 @@ const mainController = {
 
             let sides = [sideA, sideB, sideC];
 
-            let angleA = findAngle(req.body.sideA, req.body.sideB, req.body.sideC);
-            let angleB = findAngle(req.body.sideB, req.body.sideA, req.body.sideC);
-            let angleC = findAngle(req.body.sideC, req.body.sideB, req.body.sideA);
+            let angleA = findAngle(req.body.sideA, req.body.sideB, req.body.sideC).toFixed(4);
+            let angleB = findAngle(req.body.sideB, req.body.sideA, req.body.sideC).toFixed(4);
+            let angleC = findAngle(req.body.sideC, req.body.sideB, req.body.sideA).toFixed(4);
 
             let angles = [angleA, angleB, angleC];
 
@@ -62,7 +65,7 @@ const mainController = {
             //FINDING AREA OF TRIANGLE
 
             let semiPerimeter = (sideA + sideB + sideC)/2;
-            let area = Math.sqrt(semiPerimeter * (semiPerimeter - sideA) * (semiPerimeter - sideB) * (semiPerimeter - sideC));
+            let area = Math.sqrt(semiPerimeter * (semiPerimeter - sideA) * (semiPerimeter - sideB) * (semiPerimeter - sideC)).toFixed(4);
 
                     
 
