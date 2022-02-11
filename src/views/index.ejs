@@ -45,7 +45,12 @@
                     <p><%= error.msg %> </p>
                 <% } %> 
             </div>
-            <% } %>
+        <% } if (!locals.errors && (angles.length == 0 || locals.area == 0)){ %>
+            <div id="info_container">
+                <h2>Try making a triangle!</h2>
+                <p>Just be sure that the conditions are that side A + side B > side C and side A + side C > side B and side B + side C > side A</p>
+            </div>
+        <% } %> 
         <% if (angles.length == 0 || locals.area == 0) {  %>
         <%} else { %>
             <div id="info_container">
@@ -53,7 +58,7 @@
                 <p>Angle A = <%= angles[0] %>&deg;</p>
                 <p>Angle B = <%= angles[1] %>&deg;</p>
                 <p>Angle C = <%= angles[2] %>&deg;</p>
-                <p>Area = <%= locals.area %>&sup3;</p>
+                <p>Area = <%= locals.area %>&sup2;</p>
             </div>
         <%} %>
     </div>
