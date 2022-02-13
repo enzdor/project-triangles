@@ -1,5 +1,3 @@
-const {validationResult} = require('express-validator');
-
 function triangleTheoremMiddleware(req, res, next){
     let a = Number(req.body.sideA);
     let b = Number(req.body.sideB);
